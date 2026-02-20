@@ -1,0 +1,693 @@
+
+<!DOCTYPE html><!-- WhatsApp flotante -->
+<button class="wa-float" onclick="window.location.href='https://wa.me/573001234567?text=Hola,%20quiero%20información%20sobre%20AgroTech'">
+  💬 Chatea por WhatsApp
+</button><html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AgroTech — Agricultura Inteligente</title>
+<style>
+  :root{--green:#16a34a;--green-light:#22c55e;--accent:#4ade80;--bg:#0a0f0a;--bg2:#111811;--bg3:#1a221a;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--text:#f0fdf4;--muted:#86efac;--gray:#6b7280}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,15,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+  .logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.3rem;letter-spacing:-.5px;cursor:pointer}
+  .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#16a34a,#4ade80);border-radius:10px;display:grid;place-items:center;font-size:18px}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links button{background:none;border:none;color:var(--muted);font-size:.9rem;font-weight:500;cursor:pointer;transition:color .2s;font-family:inherit}
+  .nav-links button:hover{color:#fff}
+  .nav-cta{background:var(--green);color:#fff;padding:.55rem 1.3rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;white-space:nowrap}
+  .nav-cta:hover{background:var(--green-light);transform:translateY(-1px)}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.3rem}
+  .hamburger span{width:24px;height:2px;background:#fff;border-radius:2px}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(22,163,74,.35) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 85% 60%,rgba(74,222,128,.1) 0%,transparent 60%)}
+  .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px}
+  .hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:var(--accent);padding:.4rem 1rem;border-radius:100px;font-size:.8rem;font-weight:600;margin-bottom:1.5rem}
+  .badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+  h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.08;letter-spacing:-1.5px;margin-bottom:1.4rem}
+  h1 span{background:linear-gradient(135deg,#4ade80,#16a34a,#86efac);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-desc{color:#9ca3af;font-size:1.1rem;line-height:1.7;margin-bottom:2.2rem;max-width:480px}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;padding:.8rem 1.8rem;border-radius:10px;font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;box-shadow:0 0 30px rgba(22,163,74,.4);border:none;cursor:pointer;font-family:inherit}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(22,163,74,.6)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);padding:.8rem 1.8rem;border-radius:10px;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;cursor:pointer;font-family:inherit}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+  .hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+  .stat-num{font-size:1.8rem;font-weight:800;color:var(--accent)}
+  .stat-label{font-size:.8rem;color:var(--gray);margin-top:.2rem}
+
+  /* MOCKUP */
+  .hero-visual{position:relative}
+  .mockup{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:1.5rem;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05)}
+  .mockup::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(74,222,128,.5),transparent)}
+  .mock-topbar{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .d1{background:#ef4444}.d2{background:#f59e0b}.d3{background:#22c55e}
+  .mock-title{flex:1;text-align:center;font-size:.8rem;color:var(--gray)}
+  .mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+  .mock-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.9rem}
+  .mc-label{font-size:.65rem;color:var(--gray);margin-bottom:.3rem}
+  .mc-val{font-size:1.3rem;font-weight:700}
+  .green-val{color:#4ade80}.red-val{color:#f87171}.blue-val{color:#60a5fa}.yellow-val{color:#fbbf24}
+  .mock-bar-wrap{background:rgba(255,255,255,.05);border-radius:6px;height:6px;margin-top:.5rem;overflow:hidden}
+  .mock-bar{height:100%;border-radius:6px}
+  .mock-alert{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:.7rem;display:flex;align-items:center;gap:.6rem;font-size:.72rem;color:#fca5a5;margin-bottom:.7rem}
+  .mock-alert-dot{width:6px;height:6px;background:#f87171;border-radius:50%;flex-shrink:0;animation:pulse 1.5s infinite}
+  .mock-chart{background:rgba(255,255,255,.03);border-radius:10px;padding:.8rem;height:70px;position:relative;overflow:hidden}
+
+  /* SECTIONS */
+  section{padding:6rem 2rem}
+  .container{max-width:1200px;margin:0 auto}
+  .section-tag{display:inline-block;background:rgba(22,163,74,.12);color:var(--accent);border:1px solid rgba(74,222,128,.2);padding:.3rem .9rem;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1rem}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.5px;margin-bottom:1rem}
+  .section-sub{color:var(--gray);font-size:1.05rem;line-height:1.7;max-width:540px}
+  .text-center{text-align:center}
+  .text-center .section-sub{margin:0 auto}
+
+  /* LOGOS */
+  .logos-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem}
+  .logos-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;justify-content:center}
+  .logo-pill{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:.6rem 1.4rem;font-size:.85rem;color:var(--gray);font-weight:600;white-space:nowrap}
+
+  /* FEATURES */
+  #features{background:var(--bg2)}
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3.5rem}
+  .feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:all .3s}
+  .feat-card:hover{border-color:rgba(74,222,128,.25);transform:translateY(-4px);background:rgba(255,255,255,.06)}
+  .feat-card.featured{background:linear-gradient(135deg,rgba(22,163,74,.12),rgba(74,222,128,.06));border-color:rgba(74,222,128,.3)}
+  .feat-card.featured::before{content:'POPULAR';position:absolute;top:1rem;right:1rem;background:var(--green);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;letter-spacing:.5px}
+  .feat-icon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:1.2rem}
+  .feat-title{font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
+  .feat-desc{color:var(--gray);font-size:.9rem;line-height:1.65}
+  .feat-list{margin-top:1rem;display:flex;flex-direction:column;gap:.4rem;list-style:none}
+  .feat-list li{display:flex;align-items:flex-start;gap:.5rem;font-size:.85rem;color:#9ca3af}
+  .feat-list li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+
+  /* HOW IT WORKS */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:3.5rem;position:relative}
+  .steps::before{content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+  .step{text-align:center;position:relative}
+  .step-num{width:44px;height:44px;background:linear-gradient(135deg,var(--green),var(--green-light));border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1rem;margin:0 auto 1.2rem;position:relative;z-index:1;box-shadow:0 0 20px rgba(22,163,74,.4)}
+  .step-title{font-weight:700;margin-bottom:.5rem}
+  .step-desc{color:var(--gray);font-size:.88rem;line-height:1.6}
+
+  /* SERVICIOS */
+  #servicios{background:var(--bg2)}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:3rem}
+  .svc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all .3s}
+  .svc-card:hover{border-color:rgba(74,222,128,.25);transform:translateY(-3px)}
+  .svc-icon{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+  .svc-title{font-weight:700;margin-bottom:.4rem;font-size:.95rem}
+  .svc-desc{color:var(--gray);font-size:.83rem;line-height:1.6}
+  .svc-badge{display:inline-block;margin-top:.6rem;background:rgba(74,222,128,.1);color:var(--accent);font-size:.72rem;font-weight:600;padding:.15rem .6rem;border-radius:100px}
+
+  /* IMPACTO */
+  #impacto{text-align:center;position:relative;overflow:hidden}
+  #impacto::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(22,163,74,.12),transparent 70%)}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:3.5rem;position:relative}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .3s}
+  .stat-card:hover{border-color:rgba(74,222,128,.25);transform:translateY(-4px)}
+  .stat-big{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;background:linear-gradient(135deg,#4ade80,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem}
+  .stat-card p{color:var(--gray);font-size:.9rem;line-height:1.5}
+  .stat-card .stat-icon{font-size:1.8rem;margin-bottom:.8rem}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3.5rem;max-width:1000px;margin-left:auto;margin-right:auto}
+  .price-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem;position:relative;transition:all .3s;display:flex;flex-direction:column}
+  .price-card:hover{transform:translateY(-5px)}
+  .price-card.pop{background:linear-gradient(135deg,rgba(22,163,74,.15),rgba(74,222,128,.08));border:2px solid rgba(74,222,128,.4)}
+  .price-badge{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;font-weight:700;padding:.25rem .8rem;border-radius:100px;margin-bottom:1rem;letter-spacing:.5px}
+  .price-name{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+  .price-desc{color:var(--gray);font-size:.85rem;margin-bottom:1.2rem;line-height:1.5}
+  .price-divider{border:none;border-top:1px solid var(--border);margin:.8rem 0 1.2rem}
+  .price-amount{font-size:2.8rem;font-weight:900;letter-spacing:-1px;line-height:1}
+  .price-amount .currency{font-size:1.2rem;font-weight:600;vertical-align:top;margin-top:.5rem;display:inline-block}
+  .price-amount .period{font-size:.9rem;font-weight:400;color:var(--gray);margin-left:.3rem}
+  .price-features{margin:1.5rem 0;display:flex;flex-direction:column;gap:.7rem;flex:1}
+  .pf{display:flex;align-items:flex-start;gap:.6rem;font-size:.88rem}
+  .pf .check{color:var(--accent);font-weight:700;flex-shrink:0;margin-top:.1rem}
+  .pf .cross{color:var(--gray);flex-shrink:0;margin-top:.1rem}
+  .pf .inactive{color:var(--gray)}
+  .price-btn{display:block;text-align:center;padding:.85rem;border-radius:10px;font-weight:700;font-size:.92rem;cursor:pointer;border:none;font-family:inherit;transition:all .3s;margin-top:auto}
+  .price-btn.outline{border:1px solid var(--border);color:var(--text);background:transparent}
+  .price-btn.outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+  .price-btn.solid{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 0 20px rgba(22,163,74,.4)}
+  .price-btn.solid:hover{box-shadow:0 0 40px rgba(22,163,74,.6);transform:translateY(-1px)}
+  .price-note{text-align:center;color:var(--gray);font-size:.82rem;margin-top:1.5rem}
+  .price-note span{color:var(--accent);cursor:pointer;font-weight:600}
+
+  /* TESTIMONIALS */
+  #testimonios{background:var(--bg2)}
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3.5rem}
+  .testi-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:all .3s;display:flex;flex-direction:column}
+  .testi-card:hover{border-color:rgba(74,222,128,.2);transform:translateY(-3px)}
+  .stars{color:#fbbf24;font-size:.9rem;margin-bottom:.8rem;letter-spacing:2px}
+  .testi-text{color:#d1d5db;font-size:.92rem;line-height:1.75;flex:1;font-style:italic;margin-bottom:1.5rem}
+  .testi-author{display:flex;align-items:center;gap:.9rem;border-top:1px solid var(--border);padding-top:1rem}
+  .testi-avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1rem;font-weight:800;flex-shrink:0;border:2px solid rgba(255,255,255,.1)}
+  .testi-name{font-weight:700;font-size:.92rem}
+  .testi-role{color:var(--gray);font-size:.78rem;margin-top:.1rem}
+  .testi-crop{display:inline-block;background:rgba(74,222,128,.1);color:var(--accent);font-size:.7rem;font-weight:600;padding:.1rem .5rem;border-radius:100px;margin-top:.3rem}
+
+  /* CTA */
+  #cta{text-align:center;position:relative;overflow:hidden}
+  .cta-box{background:linear-gradient(135deg,rgba(22,163,74,.2),rgba(74,222,128,.08));border:1px solid rgba(74,222,128,.2);border-radius:24px;padding:5rem 2rem;position:relative;overflow:hidden}
+  .cta-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(22,163,74,.1) 0%,transparent 60%)}
+  .cta-box h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:1rem;position:relative}
+  .cta-box p{color:var(--gray);font-size:1.05rem;margin-bottom:2rem;position:relative;line-height:1.7}
+  .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+  .cta-trust{display:flex;gap:2rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+  .trust-item{display:flex;align-items:center;gap:.4rem;color:var(--gray);font-size:.82rem}
+
+  /* FOOTER */
+  footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.5rem 2rem 1.5rem}
+  .footer-inner{max-width:1200px;margin:0 auto}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+  .footer-brand p{color:var(--gray);font-size:.88rem;line-height:1.7;margin-top:.8rem;max-width:280px}
+  .footer-col h4{font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.5px}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+  .footer-col button{background:none;border:none;color:var(--gray);font-size:.87rem;cursor:pointer;font-family:inherit;text-align:left;transition:color .2s;padding:0}
+  .footer-col button:hover{color:#fff}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-bottom p{color:var(--gray);font-size:.82rem}
+  .social-links{display:flex;gap:.8rem}
+  .social-btn{width:34px;height:34px;border:1px solid var(--border);border-radius:8px;display:grid;place-items:center;font-size:.9rem;cursor:pointer;color:var(--gray);background:none;transition:all .2s}
+  .social-btn:hover{border-color:rgba(255,255,255,.3);color:#fff;background:rgba(255,255,255,.05)}
+
+  /* WHATSAPP FLOAT */
+  .wa-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;border:none;border-radius:50px;padding:.8rem 1.4rem;font-size:.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 20px rgba(37,211,102,.5);z-index:99;font-family:inherit;transition:all .3s}
+  .wa-float:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,.6)}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .hero-content{grid-template-columns:1fr}
+    .hero-visual{display:none}
+    .footer-top{grid-template-columns:1fr 1fr}
+    .steps::before{display:none}
+    .nav-links{display:none}
+    .hamburger{display:flex}
+  }
+  @media(max-width:640px){
+    nav{padding:.8rem 1.2rem}
+    section{padding:4rem 1.2rem}
+    .footer-top{grid-template-columns:1fr}
+    .hero-stats{gap:1.2rem}
+    .pricing-grid{grid-template-columns:1fr}
+  }
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(10,15,10,.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--border);z-index:99}
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="logo" onclick="goTo('hero')">
+    <div class="logo-icon">🌿</div>AgroTech
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><button onclick="goTo('features')">Plataforma</button></li>
+    <li><button onclick="goTo('servicios')">Servicios</button></li>
+    <li><button onclick="goTo('impacto')">Impacto</button></li>
+    <li><button onclick="goTo('precios')">Precios</button></li>
+    <li><button onclick="goTo('testimonios')">Clientes</button></li>
+  </ul>
+  <div style="display:flex;gap:1rem;align-items:center">
+    <button class="nav-cta" onclick="goTo('precios')">Ver planes</button>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span>Sistema activo en tiempo real</div>
+      <h1>Agricultura del<br/><span>futuro,</span><br/>hoy en tu finca.</h1>
+      <p class="hero-desc">Sensores IoT, inteligencia artificial y análisis predictivo para maximizar tu producción, detectar plagas antes de que se propaguen y ahorrar hasta 50% del agua.</p>
+      <div class="hero-btns">
+        <button class="btn-ghost" onclick="goTo('como-funciona')">▶ Cómo funciona</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">+500</div><div class="stat-label">Fincas conectadas</div></div>
+        <div><div class="stat-num">50%</div><div class="stat-label">Ahorro en agua</div></div>
+        <div><div class="stat-num">99%</div><div class="stat-label">Uptime garantizado</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mockup">
+        <div class="mock-topbar">
+          <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
+          <div class="mock-title">AgroTech — Dashboard en vivo</div>
+        </div>
+        <div class="mock-alert"><div class="mock-alert-dot"></div>⚠ Riesgo alto de Roya — Parcela Norte</div>
+        <div class="mock-grid">
+          <div class="mock-card"><div class="mc-label">🌡 Temperatura</div><div class="mc-val red-val">32.4°C</div><div class="mock-bar-wrap"><div class="mock-bar" style="width:75%;background:#ef4444"></div></div></div>
+          <div class="mock-card"><div class="mc-label">💧 Humedad Suelo</div><div class="mc-val blue-val">28%</div><div class="mock-bar-wrap"><div class="mock-bar" style="width:28%;background:#60a5fa"></div></div></div>
+          <div class="mock-card"><div class="mc-label">🐄 Ganado IA</div><div class="mc-val green-val">47 cabezas</div><div class="mock-bar-wrap"><div class="mock-bar" style="width:92%;background:#4ade80"></div></div></div>
+          <div class="mock-card"><div class="mc-label">💧 Ahorro hoy</div><div class="mc-val yellow-val">12,400 L</div><div class="mock-bar-wrap"><div class="mock-bar" style="width:60%;background:#fbbf24"></div></div></div>
+        </div>
+        <div class="mock-chart">
+          <svg width="100%" height="100%" viewBox="0 0 400 60" preserveAspectRatio="none">
+            <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80" stop-opacity=".3"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,45 C40,40 80,20 120,25 C160,30 200,35 240,22 C280,10 320,15 360,8 L400,5 L400,60 L0,60Z" fill="url(#lg)"/>
+            <path d="M0,45 C40,40 80,20 120,25 C160,30 200,35 240,22 C280,10 320,15 360,8 L400,5" fill="none" stroke="#4ade80" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <div class="logos-inner">
+    <span style="color:var(--gray);font-size:.8rem;font-weight:500;white-space:nowrap">Se integra con:</span>
+    <div class="logo-pill">🌍 FAO Colombia</div>
+    <div class="logo-pill">🚁 DJI Agras</div>
+    <div class="logo-pill">☁️ AWS IoT</div>
+    <div class="logo-pill">📡 LoRaWAN</div>
+    <div class="logo-pill">🛰️ Sentinel-2</div>
+    <div class="logo-pill">📊 Power BI</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Plataforma</div>
+      <h2 class="section-title">Todo lo que tu finca necesita,<br/>en un solo lugar.</h2>
+      <p class="section-sub">Tecnología de grado empresarial diseñada para el agricultor colombiano.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card featured reveal">
+        <div class="feat-icon" style="background:rgba(74,222,128,.1)">🌡️</div>
+        <div class="feat-title">Monitoreo IoT en Tiempo Real</div>
+        <div class="feat-desc">Sensores conectados 24/7 que capturan temperatura, humedad del aire, suelo y precipitación cada 5 segundos.</div>
+        <ul class="feat-list">
+          <li>Alertas automáticas por umbrales críticos</li>
+          <li>Historial de datos de hasta 2 años</li>
+          <li>Comparación entre múltiples parcelas</li>
+          <li>Conectividad LoRaWAN y redes celulares</li>
+        </ul>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon" style="background:rgba(239,68,68,.1)">🪲</div>
+        <div class="feat-title">Detección de Plagas con IA</div>
+        <div class="feat-desc">Modelo de IA que analiza condiciones ambientales y predice brotes de plagas con 88% de precisión, 48-72h antes de que sean visibles.</div>
+        <ul class="feat-list">
+          <li>Base de datos de 200+ plagas tropicales</li>
+          <li>Protocolos de tratamiento verificados</li>
+          <li>Niveles de riesgo: bajo / medio / alto / crítico</li>
+          <li>Alertas push en tiempo real al celular</li>
+        </ul>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon" style="background:rgba(96,165,250,.1)">💧</div>
+        <div class="feat-title">Riego Inteligente</div>
+        <div class="feat-desc">Calcula exactamente cuántos litros necesitas, cuándo regar y cuánto dinero ahorras frente al riego tradicional.</div>
+        <ul class="feat-list">
+          <li>Ahorro del 20–50% en consumo de agua</li>
+          <li>Cálculo personalizado por cultivo</li>
+          <li>Ajuste automático por temperatura y lluvia</li>
+          <li>Reportes de ahorro en litros y USD</li>
+        </ul>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon" style="background:rgba(167,139,250,.1)">🚁</div>
+        <div class="feat-title">Conteo de Ganado con Drones</div>
+        <div class="feat-desc">Conecta tu dron y nuestra IA cuenta tu ganado con 88–99% de precisión, detectando posibles problemas de salud por animal.</div>
+        <ul class="feat-list">
+          <li>Compatible con DJI Agras y Parrot</li>
+          <li>Mapa de distribución en tiempo real</li>
+          <li>Detección de anomalías de salud</li>
+          <li>Historial de conteos y tendencias semanales</li>
+        </ul>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon" style="background:rgba(251,191,36,.1)">📊</div>
+        <div class="feat-title">Reportes & Analítica Avanzada</div>
+        <div class="feat-desc">Dashboards personalizados con KPIs de producción, comparativas históricas y proyecciones basadas en datos reales.</div>
+        <ul class="feat-list">
+          <li>Exportación a PDF, Excel y Power BI</li>
+          <li>Reportes automáticos semanales y mensuales</li>
+          <li>KPIs por finca, parcela y cultivo</li>
+        </ul>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon" style="background:rgba(52,211,153,.1)">🤖</div>
+        <div class="feat-title">Asistente Agro IA</div>
+        <div class="feat-desc">Chat especializado en agronomía que responde preguntas basadas en el estado actual de tu finca y condiciones climáticas.</div>
+        <ul class="feat-list">
+          <li>Disponible 24/7, sin espera</li>
+          <li>Recomendaciones en contexto de tu parcela</li>
+          <li>Entrenado con datos agronómicos verificados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="section-tag">Proceso</div>
+      <h2 class="section-title">Conectado en 4 pasos simples</h2>
+      <p class="section-sub">Sin instalaciones complejas. Funcional desde el primer día.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Registra tu finca</div>
+        <div class="step-desc">Crea tu cuenta gratuita e ingresa tus fincas y parcelas en minutos. Sin tarjeta de crédito.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">Instala los sensores</div>
+        <div class="step-desc">Kits plug-and-play con guía en video. Operativos en menos de 1 hora sin conocimientos técnicos.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">La IA aprende tu finca</div>
+        <div class="step-desc">En 7 días el sistema identifica los patrones de tu terreno y calibra las predicciones a tu microclima.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-title">Decide con datos</div>
+        <div class="step-desc">Recibe alertas, recomendaciones y reportes directamente en tu celular en español, cuando los necesitas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Servicios Adicionales</div>
+      <h2 class="section-title">Más allá del software</h2>
+      <p class="section-sub">Un equipo de agrónomos e ingenieros que respaldan cada decisión que tomes.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(74,222,128,.1)">👨‍🌾</div>
+        <div><div class="svc-title">Consultoría Agronómica</div><div class="svc-desc">Agrónomos certificados analizan los datos de tu finca y diseñan planes de mejora personalizados por cultivo, suelo y clima.</div><span class="svc-badge">Desde $80 USD/sesión</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(96,165,250,.1)">🔧</div>
+        <div><div class="svc-title">Instalación & Soporte Técnico</div><div class="svc-desc">Técnicos especializados instalan y calibran sensores en cualquier región del país. Soporte 7×24 por WhatsApp y teléfono.</div><span class="svc-badge">Cobertura nacional</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(167,139,250,.1)">🎓</div>
+        <div><div class="svc-title">Capacitación & Onboarding</div><div class="svc-desc">Talleres presenciales y virtuales para que tu equipo aproveche el 100% de la plataforma. Materiales en español incluidos.</div><span class="svc-badge">Incluido en plan Cosecha</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(251,191,36,.1)">🛰️</div>
+        <div><div class="svc-title">Análisis por Satélite NDVI</div><div class="svc-desc">Imágenes Sentinel-2 procesadas semanalmente para mapas de salud de cultivos, estrés hídrico y variabilidad del terreno.</div><span class="svc-badge">Resolución 10 m²</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(239,68,68,.1)">📋</div>
+        <div><div class="svc-title">Auditorías Trimestrales</div><div class="svc-desc">Visitas técnicas para validar lecturas, calibrar equipos, revisar protocolos de acción y emitir informe ejecutivo detallado.</div><span class="svc-badge">Plan Hacienda</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon" style="background:rgba(52,211,153,.1)">🔗</div>
+        <div><div class="svc-title">Integraciones a Medida</div><div class="svc-desc">Conectamos AgroTech con tu ERP, sistema de trazabilidad o plataforma de certificación orgánica mediante API REST.</div><span class="svc-badge">API disponible</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACTO -->
+<section id="impacto">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="section-tag">Impacto Real</div>
+      <h2 class="section-title">Números que transforman fincas</h2>
+      <p class="section-sub">Resultados medibles de nuestros usuarios activos en Colombia y Latinoamérica.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-icon">🌿</div><div class="stat-big">+500</div><p>Fincas activas en Colombia, Ecuador y Perú monitoreadas en tiempo real</p></div>
+      <div class="stat-card reveal"><div class="stat-icon">💧</div><div class="stat-big">50%</div><p>Reducción promedio en consumo de agua vs. métodos de riego tradicionales</p></div>
+      <div class="stat-card reveal"><div class="stat-icon">🪲</div><div class="stat-big">88%</div><p>Precisión en detección temprana de plagas antes de síntomas visibles</p></div>
+      <div class="stat-card reveal"><div class="stat-icon">💰</div><div class="stat-big">3.2M</div><p>Litros de agua ahorrados por nuestros usuarios en el último año</p></div>
+      <div class="stat-card reveal"><div class="stat-icon">🐄</div><div class="stat-big">99%</div><p>Precisión máxima en conteo de ganado con drones en condiciones óptimas</p></div>
+      <div class="stat-card reveal"><div class="stat-icon">⏱️</div><div class="stat-big">72h</div><p>Anticipación promedio en alertas de plagas antes del primer síntoma</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="precios">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="section-tag">Precios</div>
+      <h2 class="section-title">Planes para cada tamaño de finca</h2>
+      <p class="section-sub">Sin contratos de permanencia. Cancela cuando quieras.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">🌱 Semilla</div>
+        <div class="price-desc">Para fincas pequeñas que están dando sus primeros pasos con tecnología.</div>
+        <hr class="price-divider"/>
+        <div class="price-amount">Gratis<span class="period">/ siempre</span></div>
+        <div class="price-features">
+          <div class="pf"><span class="check">✓</span> Hasta 2 parcelas activas</div>
+          <div class="pf"><span class="check">✓</span> Monitoreo de temperatura y humedad</div>
+          <div class="pf"><span class="check">✓</span> Alertas básicas por email</div>
+          <div class="pf"><span class="check">✓</span> Dashboard web incluido</div>
+          <div class="pf"><span class="cross">✗</span><span class="inactive">Detección de plagas con IA</span></div>
+          <div class="pf"><span class="cross">✗</span><span class="inactive">Riego inteligente</span></div>
+          <div class="pf"><span class="cross">✗</span><span class="inactive">Conteo de ganado</span></div>
+          <div class="pf"><span class="cross">✗</span><span class="inactive">Soporte técnico</span></div>
+        </div>
+      <button class="price-btn outline" onclick="goTo('cta')">Contactar →</button>
+      </div>
+      <div class="price-card pop reveal">
+        <div class="price-badge">⭐ MÁS POPULAR</div>
+        <div class="price-name">🌾 Cosecha</div>
+        <div class="price-desc">La solución completa para fincas productivas que quieren maximizar su rendimiento.</div>
+        <hr class="price-divider"/>
+        <div class="price-amount"><span class="currency">$</span>89<span class="period">USD / mes</span></div>
+        <div class="price-features">
+          <div class="pf"><span class="check">✓</span> Parcelas ilimitadas</div>
+          <div class="pf"><span class="check">✓</span> Monitoreo completo IoT 24/7</div>
+          <div class="pf"><span class="check">✓</span> Detección de plagas con IA</div>
+          <div class="pf"><span class="check">✓</span> Sistema de riego inteligente</div>
+          <div class="pf"><span class="check">✓</span> Conteo de ganado con drones</div>
+          <div class="pf"><span class="check">✓</span> Asistente Agro IA 24/7</div>
+          <div class="pf"><span class="check">✓</span> Reportes en PDF y Excel</div>
+          <div class="pf"><span class="check">✓</span> Soporte prioritario por WhatsApp</div>
+        </div>
+        <button class="price-btn solid"    onclick="goTo('cta')">Solicitar información →</button>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-name">🏡 Hacienda</div>
+        <div class="price-desc">Para cooperativas, empresas agroindustriales y fincas con más de 100 hectáreas.</div>
+        <hr class="price-divider"/>
+        <div class="price-amount">A medida</div>
+        <div class="price-features">
+          <div class="pf"><span class="check">✓</span> Todo lo del plan Cosecha</div>
+          <div class="pf"><span class="check">✓</span> API REST + integraciones ERP</div>
+          <div class="pf"><span class="check">✓</span> Análisis satelital NDVI semanal</div>
+          <div class="pf"><span class="check">✓</span> Consultoría agronómica mensual</div>
+          <div class="pf"><span class="check">✓</span> Auditorías técnicas trimestrales</div>
+          <div class="pf"><span class="check">✓</span> SLA 99.9% con garantía escrita</div>
+          <div class="pf"><span class="check">✓</span> Gerente de cuenta dedicado</div>
+          <div class="pf"><span class="check">✓</span> Capacitación presencial incluida</div>
+        </div>
+        <button class="price-btn outline" onclick="goTo('cta')">Hablar con ventas →</button>
+      </div>
+    </div>
+    <p class="price-note">¿Dudas sobre qué plan elegir? <span onclick="goTo('cta')" style="color:var(--accent);cursor:pointer;font-weight:600">Contáctanos</span> y te asesoramos sin costo.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonios">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="section-tag">Clientes</div>
+      <h2 class="section-title">Lo que dicen los agricultores</h2>
+      <p class="section-sub">Más de 500 fincas ya confían en AgroTech para tomar mejores decisiones cada día.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Antes perdía el 30% de mi cosecha de café por la Roya. Con AgroTech detecté el brote 3 días antes y apliqué tratamiento a tiempo. Esta temporada fue mi mejor cosecha en 10 años."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(74,222,128,.15);color:#4ade80">CR</div>
+          <div><div class="testi-name">Carlos Restrepo</div><div class="testi-role">Caficultor · Quindío</div><div class="testi-crop">☕ Café Arábica · 8 ha</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"El conteo de ganado con drones me ahorra 2 días de trabajo al mes. Antes necesitaba 3 jornaleros; ahora el dron + IA lo hace en 20 minutos con mayor precisión."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(167,139,250,.15);color:#a78bfa">LM</div>
+          <div><div class="testi-name">Lucía Morales</div><div class="testi-role">Ganadera · Córdoba</div><div class="testi-crop">🐄 Bovinos · 180 cabezas</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"El riego inteligente redujo nuestro consumo de agua un 45% en la finca de aguacate Hass. El ROI fue positivo desde el primer mes. Increíble tecnología para el campo colombiano."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(96,165,250,.15);color:#60a5fa">AF</div>
+          <div><div class="testi-name">Andrés Forero</div><div class="testi-role">Aguacatero · Risaralda</div><div class="testi-crop">🥑 Aguacate Hass · 22 ha</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Tenemos 6 fincas bananeras y AgroTech centraliza todo en un dashboard. Las alertas de Sigatoka negra llegaron 2 días antes de los síntomas. Ahorramos más de $12,000 USD en tratamientos."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(251,191,36,.15);color:#fbbf24">MP</div>
+          <div><div class="testi-name">Mariana Palacios</div><div class="testi-role">Directora Agrícola · Urabá</div><div class="testi-crop">🍌 Banano exportación · 6 fincas</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★☆</div>
+        <div class="testi-text">"El soporte técnico es excelente. Un ingeniero llegó a instalar los sensores en mi finca en zona rural sin problema. La app es fácil de usar, hasta mi trabajador más mayor la maneja sin dificultad."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(239,68,68,.15);color:#f87171">JV</div>
+          <div><div class="testi-name">Jorge Vargas</div><div class="testi-role">Cacaotero · Huila</div><div class="testi-crop">🍫 Cacao fino · 14 ha</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Integramos AgroTech con nuestro ERP y la trazabilidad de exportación es automática. Los compradores internacionales valoran el reporte de datos de campo que generamos con la plataforma."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(52,211,153,.15);color:#34d399">RH</div>
+          <div><div class="testi-name">Ricardo Henao</div><div class="testi-role">CEO Cooperativa · Antioquia</div><div class="testi-crop">☕ Cooperativa · 45 fincas asociadas</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>¿Listo para transformar<br/>tu <span style="background:linear-gradient(135deg,#4ade80,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">finca?</span></h2>
+      <p>Contáctanos y uno de nuestros especialistas<br/>te guiará sin costo ni compromiso.</p>
+      <div class="cta-btns">
+        <button class="btn-primary" onclick="window.location.href='mailto:hola@agrotech.co?subject=Quiero%20saber%20más%20sobre%20AgroTech'">✉️ Escribir al equipo</button>
+        <button class="btn-ghost"   onclick="window.location.href='tel:+573001234567'">📞 Llamar ahora</button>
+      </div>
+      <div class="cta-trust">
+        <span class="trust-item">✅ Sin compromisos</span>
+        <span class="trust-item">✅ Respuesta en 24 h</span>
+        <span class="trust-item">✅ Soporte en español</span>
+        <span class="trust-item">✅ Datos seguros en AWS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" onclick="scrollTo('hero')"><div class="logo-icon">🌿</div>AgroTech</div>
+        <p>Tecnología de precisión para la agricultura latinoamericana. Sembramos datos, cosechamos decisiones.</p>
+        <div style="margin-top:1rem;display:flex;gap:.8rem">
+          <button class="social-btn" title="Twitter/X">𝕏</button>
+          <button class="social-btn" title="LinkedIn">in</button>
+          <button class="social-btn" title="YouTube">▶</button>
+          <button class="social-btn" title="Instagram">📷</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Plataforma</h4>
+        <ul>
+          <li><button onclick="scrollTo('features')">Monitoreo IoT</button></li>
+          <li><button onclick="scrollTo('features')">Detección de Plagas</button></li>
+          <li><button onclick="scrollTo('features')">Riego Inteligente</button></li>
+          <li><button onclick="scrollTo('features')">Ganadería con IA</button></li>
+          <li><button onclick="scrollTo('features')">Analítica y Reportes</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><button onclick="scrollTo('servicios')">Consultoría Agronómica</button></li>
+          <li><button onclick="scrollTo('servicios')">Instalación & Soporte</button></li>
+          <li><button onclick="scrollTo('servicios')">Capacitación</button></li>
+          <li><button onclick="scrollTo('servicios')">Satélite NDVI</button></li>
+          <li><button onclick="scrollTo('servicios')">Integraciones API</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Compañía</h4>
+        <ul>
+          <li><button onclick="goTo('features')">Sobre nosotros</button></li>
+          <li><button onclick="goTo('features')">Blog & Recursos</button></li>
+          <li><button onclick="goTo('testimonios')">Casos de éxito</button></li>
+          <li><button onclick="goTo('cta')">Trabaja con nosotros</button></li>
+          <li><button onclick="goTo('cta')">Política de privacidad</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AgroTech SAS. Hecho con 🌱 en Colombia. Bogotá, D.C.</p>
+      <p style="color:var(--gray);font-size:.78rem">NIT: 901.234.567-8</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Scroll helper ──
+  function goTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // ── Cerrar modal con Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Hamburger ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ── Scroll reveal ──
+  const revealEls = document.querySelectorAll('.reveal');
+  function checkReveal() {
+    const vh = window.innerHeight;
+    revealEls.forEach(el => {
+      if (el.getBoundingClientRect().top < vh - 60) el.classList.add('visible');
+    });
+  }
+  checkReveal();
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  window.addEventListener('resize', checkReveal);
+  setTimeout(() => revealEls.forEach(el => el.classList.add('visible')), 1500);
+
+  // ── Nav shadow ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').style.boxShadow =
+      window.scrollY > 60 ? '0 4px 30px rgba(0,0,0,.5)' : 'none';
+  }, { passive: true });
+</script>
+</body>
+</html>
